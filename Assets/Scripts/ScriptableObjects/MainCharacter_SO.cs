@@ -8,4 +8,6 @@ public class MainCharacter_SO : ScriptableObject
     public float maxHealt;
     public bool Exhausted;
     public float force;
+    public float damage;
+    public float attackRange;
 }
