@@ -134,6 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   force: 10
   cameraTracker: {fileID: 1859407171317494564}
+  mainCharacter_SO: {fileID: 11400000, guid: 09329896744a74d4f81282e69fb2fb08, type: 2}
 --- !u!50 &6038663510790218366
 Rigidbody2D:
   serializedVersion: 4

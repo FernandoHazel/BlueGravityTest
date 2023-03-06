@@ -9,10 +9,10 @@ public class MainCharacter : MonoBehaviour
     //Setting up the player control
     private PlayerControl playerControl;
     private Rigidbody2D rb;
-    [SerializeField] float force;
     [SerializeField] GameObject cameraTracker;
+    [SerializeField] MainCharacter_SO mainCharacter_SO;
 
-    public static bool isExhausted = false;
+    public static bool isExhausted;
 
     private void Awake() 
     {
@@ -24,7 +24,6 @@ public class MainCharacter : MonoBehaviour
         //Make sure the game object is not going to
         // fall when the game starts
         rb.gravityScale = 0;
-        StartCoroutine(Exhauste());
     }
     private void OnEnable() 
     {
@@ -44,7 +43,7 @@ public class MainCharacter : MonoBehaviour
         Vector2 movementValue = playerControl.Player.Move.ReadValue<Vector2>();
 
         //Move the player
-        rb.AddForce(movementValue * force, ForceMode2D.Force);
+        rb.AddForce(movementValue * mainCharacter_SO.force, ForceMode2D.Force);
 
         //move the tracker for the camera
         Vector2 trackerPosition = new Vector2
@@ -52,14 +51,9 @@ public class MainCharacter : MonoBehaviour
             transform.position.x + movementValue.x,
             transform.position.y + movementValue.y
         );
-
         cameraTracker.transform.position = trackerPosition;
-    }
 
-    IEnumerator Exhauste()
-    {
-        yield return new WaitForSeconds(4);
-        isExhausted = true;
-        Debug.Log("Exhausted");
+        //Update the exhausted state for the bacteria class
+        isExhausted = mainCharacter_SO.Exhausted;
     }
 }
