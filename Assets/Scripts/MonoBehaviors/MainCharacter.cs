@@ -130,7 +130,7 @@ public class MainCharacter : MonoBehaviour, IDamagable
     IEnumerator DestroyObject()
     {
         yield return new WaitForSeconds(.1f);
-        Destroy(gameObject);
+        ren.enabled = false;
     }
 
     //This is just for test

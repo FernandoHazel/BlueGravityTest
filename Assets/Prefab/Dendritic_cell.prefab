@@ -99,9 +99,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.16277118, y: 0.12521018}
+  m_Offset: {x: 0.5597463, y: 0.7223768}
   serializedVersion: 2
-  m_Radius: 1.1297002
+  m_Radius: 2.1089053
 --- !u!114 &8571964340894696723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,5 +114,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffb14283efd837d4eb6c9ce0e95dad86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shopButton: {fileID: 0}
-  ShopPanel: {fileID: 0}

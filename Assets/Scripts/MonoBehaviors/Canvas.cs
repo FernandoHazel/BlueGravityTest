@@ -23,6 +23,7 @@ public class Canvas : MonoBehaviour
     {
         ShopPanel.SetActive(true);
         Time.timeScale = 0;
+        GenerateUpgrades();
     }
 
     public void ExitTheShop() 

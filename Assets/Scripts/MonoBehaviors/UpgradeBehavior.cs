@@ -6,7 +6,7 @@ using TMPro;
 
 public class UpgradeBehavior : MonoBehaviour
 {
-    [SerializeField] Sprite sprite;
+    [SerializeField] Image image;
     [SerializeField] TextMeshProUGUI upgradeText;
     [SerializeField] TextMeshProUGUI costText;
     [SerializeField] Button buyButton;
@@ -14,7 +14,7 @@ public class UpgradeBehavior : MonoBehaviour
     public void FillData(Sprite spriteData, string upgradeTextData, string costTextData, string percentage, bool sold)
     {
         //fill all the fields
-        sprite = spriteData;
+        image.sprite = spriteData;
         upgradeText.text = $"{percentage}% {upgradeTextData}";
         costText.text = costTextData;
 
