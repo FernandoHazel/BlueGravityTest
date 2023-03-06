@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1422689232767453065}
   - component: {fileID: 8713613309865445877}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: UpgradesPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 7606566585488852182}
   - component: {fileID: 8720167347391969595}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ShopButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -461,8 +461,8 @@ RectTransform:
   m_Father: {fileID: 945023185552083733}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.15329462, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -0.000091552734}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -521,7 +521,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &482857122276922440
 RectTransform:
   m_ObjectHideFlags: 0
@@ -995,6 +995,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shopButton: {fileID: 1312547867177539705}
   ShopPanel: {fileID: 4345152884650222672}
+  upgradePrefab: {fileID: 5653172064288350414, guid: 3196b72b95dd7b94cb2bd31f7c65a7ea, type: 3}
+  upgradesPanel: {fileID: 334554959098236119}
+  upgrades_SO: {fileID: 11400000, guid: 183a711ad6abc694fbd1f6f0ce8a5c00, type: 2}
 --- !u!1 &7124849387351511721
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,8 +1034,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -6, y: 231}
-  m_SizeDelta: {x: 418.43, y: 400.7179}
+  m_AnchoredPosition: {x: 0.000015259, y: 142}
+  m_SizeDelta: {x: 157.6755, y: 151.0011}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7124849387351511722
 CanvasRenderer:
@@ -1108,8 +1111,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 200.36}
-  m_SizeDelta: {x: 154.5529, y: 148.0107}
+  m_AnchoredPosition: {x: 0, y: 75.501}
+  m_SizeDelta: {x: 68.061, y: 65.18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7124849388220350987
 CanvasRenderer:

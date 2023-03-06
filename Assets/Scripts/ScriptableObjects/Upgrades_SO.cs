@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "UpgradesData", menuName = "ScriptableObjects/Upgrades_SO", order = 4)]
-public class Upgrades : ScriptableObject
+public class Upgrades_SO : ScriptableObject
 {
     public Upgrade[] upgrades;
 }
@@ -16,8 +17,8 @@ public class Upgrade
     public float cost;
     [Tooltip("The Object we are going to add to the look")]
     public GameObject accessory;
-    [Tooltip("Which skill we are going to improve")]
-    public string skillName;
+    [Tooltip("Must be named the same as the MainCharacter_SO skill")]
+    public skills skill;
     [Tooltip("Which is the name of the upgrade")]
     public string UpgradeName;
     [Tooltip("How much we are going to improve")]
@@ -27,4 +28,11 @@ public class Upgrade
     public string DCDialogue;
     [Tooltip("Is this upgrade already sold?")]
     public bool sold;
+}
+
+public enum skills
+{
+    maxHealt,
+    force,
+    damage
 }

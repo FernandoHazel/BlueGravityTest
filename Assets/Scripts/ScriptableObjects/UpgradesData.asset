@@ -13,27 +13,27 @@ MonoBehaviour:
   m_Name: UpgradesData
   m_EditorClassIdentifier: 
   upgrades:
-  - sprite: {fileID: 0}
-    cost: 0
-    accessory: {fileID: 0}
-    skillName: 
-    UpgradeName: 
-    Upercent: 0
-    DCDialogue: 
+  - sprite: {fileID: 21300000, guid: c96a5ecc3d57a8f49874a2eea796809a, type: 3}
+    cost: 1000
+    accessory: {fileID: 8681030136240448421, guid: dac4ec506548fc34f94062be98f6265d, type: 3}
+    skill: 1
+    UpgradeName: more speed
+    Upercent: 20
+    DCDialogue: Too slow? With this upgrade you will be 20% faster
     sold: 0
-  - sprite: {fileID: 0}
-    cost: 0
-    accessory: {fileID: 0}
-    skillName: 
-    UpgradeName: 
-    Upercent: 0
-    DCDialogue: 
+  - sprite: {fileID: 21300000, guid: f7eb4a8c31f5a6542992224a4dfc95ed, type: 3}
+    cost: 1000
+    accessory: {fileID: 1778334421564164673, guid: f7cc3a93caaa2a74bab950b99bb0b777, type: 3}
+    skill: 0
+    UpgradeName: more healt
+    Upercent: 20
+    DCDialogue: Don't worry about those scratches anymore
     sold: 0
-  - sprite: {fileID: 0}
-    cost: 0
-    accessory: {fileID: 0}
-    skillName: 
-    UpgradeName: 
-    Upercent: 0
-    DCDialogue: 
+  - sprite: {fileID: 21300000, guid: c50ccc25b9f1eeb49b255e54f7e691e2, type: 3}
+    cost: 1000
+    accessory: {fileID: 3203870570217932771, guid: 6ac6c7e69229cee43ba288d4eaa363e9, type: 3}
+    skill: 2
+    UpgradeName: more damage
+    Upercent: 20
+    DCDialogue: Those invaders better be prepared
     sold: 0
