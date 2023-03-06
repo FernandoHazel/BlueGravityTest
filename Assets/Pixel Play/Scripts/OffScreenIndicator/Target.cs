@@ -91,6 +91,13 @@ public class Target : MonoBehaviour
         }
     }
 
+    /* public void TargetDamaged(float maxHealt, float healt)
+    {
+        
+        OffScreenIndicator.TargetGotDamaged(this, maxHealt, healt);
+    
+    } */
+
     /// <summary>
     /// Gets the distance between the camera and the target.
     /// </summary>

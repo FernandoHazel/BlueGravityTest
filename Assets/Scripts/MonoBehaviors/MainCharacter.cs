@@ -11,10 +11,19 @@ public class MainCharacter : MonoBehaviour, IDamagable
     public static List<IDamagable> bacterias = new List<IDamagable>();
     private Rigidbody2D rb;
     private float healt;
+    private Target target;
+    private SpriteRenderer ren;
     [SerializeField] GameObject cameraTracker;
     [SerializeField] MainCharacter_SO mainCharacter_SO;
-    [SerializeField] HealtBar healtBar;
     public static bool isExhausted;
+    private bool dead;
+    public bool isDead
+    {
+        get
+       {
+           return dead;
+       }
+    }
     public Vector3 Position
    {
        get
@@ -27,12 +36,19 @@ public class MainCharacter : MonoBehaviour, IDamagable
     {
         playerControl = new PlayerControl();
         rb = GetComponent<Rigidbody2D>();
+        target = GetComponent<Target>();
+        ren = GetComponent<SpriteRenderer>();
+
     }
     private void Start() 
     {
         //Make sure the game object is not going to
         // fall when the game starts
         rb.gravityScale = 0;
+        dead = false;
+
+        //this is just for test
+        StartCoroutine(Exhauste());
     }
     private void OnEnable() 
     {
@@ -69,11 +85,14 @@ public class MainCharacter : MonoBehaviour, IDamagable
         //Attack close enemies
         foreach (IDamagable bacteria in bacterias)
         {
-            //If there is an enemy chose and we are not exhausted
-            if(Vector2.Distance(transform.position, bacteria.Position) <= mainCharacter_SO.attackRange && !isExhausted)
+            if(!bacteria.isDead)
             {
-                //Generate damage on the bacteria
-                bacteria.Damage(mainCharacter_SO.damage);
+                //If there is an enemy chose and we are not exhausted
+                if(Vector2.Distance(transform.position, bacteria.Position) <= mainCharacter_SO.attackRange && !isExhausted)
+                {
+                    //Generate damage on the bacteria
+                    bacteria.Damage(mainCharacter_SO.damage * Time.deltaTime);
+                }
             }
         }
     }
@@ -84,7 +103,43 @@ public class MainCharacter : MonoBehaviour, IDamagable
         if(isExhausted)
         {
             healt -= damage;
-            healtBar.On_damaged(mainCharacter_SO.maxHealt, healt);
+            
+            //Invoke event on target to update the healtbar
+            //target.TargetDamaged(mainCharacter_SO.maxHealt, healt);
+
+            //obtain the amount of healt left
+            float percent = healt/mainCharacter_SO.maxHealt;
+
+            //Adjust the sprite color
+            Color newColor = new Color(255, 255 * percent, 255 * percent, 255);
+            ren.color = newColor;
+
+            if(healt <= 0)
+            {
+                Die();
+            }
         }
+    }
+
+    private void Die()
+    {
+        dead = true;
+        StartCoroutine(DestroyObject());
+    }
+    
+    IEnumerator DestroyObject()
+    {
+        yield return new WaitForSeconds(.1f);
+        Destroy(gameObject);
+    }
+
+    //This is just for test
+    IEnumerator Exhauste()
+    {
+        //wait top destroy to avoid missing reference exceptions
+        //In the damage process
+        yield return new WaitForSeconds(5);
+        isExhausted = true;
+        Debug.Log("Exhausted");
     }
 }

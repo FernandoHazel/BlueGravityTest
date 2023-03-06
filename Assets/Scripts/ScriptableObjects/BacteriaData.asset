@@ -15,5 +15,5 @@ MonoBehaviour:
   maxHealt: 100
   force: 0.1
   damage: 1
-  attackRange: 1
+  attackRange: 2
   ReselectTargetTime: 20

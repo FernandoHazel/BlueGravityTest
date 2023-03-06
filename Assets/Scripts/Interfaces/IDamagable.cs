@@ -6,4 +6,5 @@ public interface IDamagable
 {
     Vector3 Position { get; }
     void Damage(float damage);
+    bool isDead { get; }
 }
