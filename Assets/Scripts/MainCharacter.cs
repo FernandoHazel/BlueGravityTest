@@ -9,6 +9,10 @@ public class MainCharacter : MonoBehaviour
     //Setting up the player control
     private PlayerControl playerControl;
     private Rigidbody2D rb;
+    [SerializeField] float force;
+    [SerializeField] GameObject cameraTracker;
+
+    public static bool isExhausted = false;
 
     private void Awake() 
     {
@@ -20,6 +24,7 @@ public class MainCharacter : MonoBehaviour
         //Make sure the game object is not going to
         // fall when the game starts
         rb.gravityScale = 0;
+        StartCoroutine(Exhauste());
     }
     private void OnEnable() 
     {
@@ -30,7 +35,7 @@ public class MainCharacter : MonoBehaviour
         playerControl.Disable();
     }
 
-    //Because we are using physics I use Fixed Update to manage 
+    //Because I am using physics I use FixedUpdate to manage 
     //The character movement
 
     private void FixedUpdate() 
@@ -39,6 +44,22 @@ public class MainCharacter : MonoBehaviour
         Vector2 movementValue = playerControl.Player.Move.ReadValue<Vector2>();
 
         //Move the player
-        rb.AddForce(movementValue, ForceMode2D.Force);
+        rb.AddForce(movementValue * force, ForceMode2D.Force);
+
+        //move the tracker for the camera
+        Vector2 trackerPosition = new Vector2
+        (
+            transform.position.x + movementValue.x,
+            transform.position.y + movementValue.y
+        );
+
+        cameraTracker.transform.position = trackerPosition;
+    }
+
+    IEnumerator Exhauste()
+    {
+        yield return new WaitForSeconds(4);
+        isExhausted = true;
+        Debug.Log("Exhausted");
     }
 }
