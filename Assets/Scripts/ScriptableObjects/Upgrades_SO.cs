@@ -14,7 +14,8 @@ public class Upgrade
 {
     [Tooltip("The sprite of the shop")]
     public Sprite sprite;
-    public float cost;
+    public int BuyCost;
+    public int SellCost;
     [Tooltip("The Object we are going to add to the look")]
     public GameObject accessory;
     [Tooltip("Must be named the same as the MainCharacter_SO skill")]
