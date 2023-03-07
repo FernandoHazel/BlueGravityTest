@@ -45,14 +45,14 @@ public class UpgradeBehavior : MonoBehaviour
     {
         //Send the upgrade name to the canvas
         canvas.Buy(upgradeName.text);
-        Debug.Log("Buying "+ upgradeName.text);
+        //Debug.Log("Buying "+ upgradeName.text);
     }
 
     public void SellThis()
     {
         //Send the upgrade name to the canvas
         canvas.Sell(upgradeName.text);
-        Debug.Log("Selling "+ upgradeName.text);
+        //Debug.Log("Selling "+ upgradeName.text);
     }
 
 }

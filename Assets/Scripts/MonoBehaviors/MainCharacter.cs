@@ -77,6 +77,7 @@ public class MainCharacter : MonoBehaviour, IDamagable
     private void FixedUpdate() 
     {
         //Debug.Log("Exhausted "+ isExhausted);
+        //Debug.Log("ModifiedMaxHealth "+ mainCharacter_SO.modifiedMaxHealth);
 
         //Get the input value
         Vector2 movementValue = playerControl.Player.Move.ReadValue<Vector2>();

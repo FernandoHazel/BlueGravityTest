@@ -7,13 +7,13 @@ public class MainCharacter_SO : ScriptableObject
 {
     [Header("Skills")]
     public float maxHealth;
-    [HideInInspector] public float modifiedMaxHealth;
+    public float modifiedMaxHealth;
     public float force;
-    [HideInInspector] public float modifiedForce;
+    public float modifiedForce;
     public float damage;
-    [HideInInspector] public float modifiedDamage;
+    public float modifiedDamage;
     public float attackRange;
-    [HideInInspector] public float modifiedAttackRange;
+    public float modifiedAttackRange;
 
     [Header("properties")]
     public bool Exhausted;

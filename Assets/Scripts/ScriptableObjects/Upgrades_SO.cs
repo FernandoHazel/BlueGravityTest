@@ -29,11 +29,13 @@ public class Upgrade
     public string DCDialogue;
     [Tooltip("Is this upgrade already sold?")]
     public bool sold;
-}
-
-public enum skills
-{
-    maxHealt,
-    force,
-    damage
+    //This bool is to avoid an upgrade to modify a stat more than once
+    [HideInInspector] public bool modified = false;
+    public enum skills
+    {
+        maxHealt,
+        force,
+        damage,
+        attackRange
+    }
 }

@@ -94,6 +94,8 @@ public class Canvas : MonoBehaviour
                     upgrade.Upercent.ToString(),
                     upgrade.sold
                 );
+
+                Unequip(upgrade);
             }
             else
             {
@@ -144,6 +146,7 @@ public class Canvas : MonoBehaviour
                 else
                 {
                     //Reject the player to buy
+                    if(rejected != null)
                     rejected();
                 }
             }
@@ -183,13 +186,72 @@ public class Canvas : MonoBehaviour
         accessoriesList.Add(accessory);
 
         //Modify the stats
-        //Debug.Log(upgrade.UpgradeName + "'s enum ->" + upgrade.skill); 
+        switch (upgrade.skill) {
+            case Upgrade.skills.maxHealt:
+                
+                if(upgrade.modified == false)
+                mainCharacter_SO.modifiedMaxHealth += 
+                (mainCharacter_SO.maxHealth * upgrade.Upercent/100);
+                break;
+            case Upgrade.skills.force:
+                
+                if(upgrade.modified == false)
+                mainCharacter_SO.modifiedForce += 
+                (mainCharacter_SO.force * upgrade.Upercent/100);
+                break;
+            case Upgrade.skills.damage:
+                
+                if(upgrade.modified == false)
+                mainCharacter_SO.modifiedDamage += 
+                (mainCharacter_SO.damage * upgrade.Upercent/100);
+                break;
+            case Upgrade.skills.attackRange:
+                
+                if(upgrade.modified == false)
+                mainCharacter_SO.modifiedAttackRange += 
+                (mainCharacter_SO.attackRange * upgrade.Upercent/100);
+                break;
+            
+        }
+
+        upgrade.modified = true;
     }
 
-    public void Unequip()
+    public void Unequip(Upgrade upgrade)
     {
-        //Destroy the accessory
-
+        //The accessory is already destroyed 
+        //when GenerateUpdates() runs
+        
         //Modify the stats
+        //because this code runs at the begginig of the game 
+        //Verify if the stats are not already at default
+        switch (upgrade.skill) {
+            case Upgrade.skills.maxHealt:
+
+                if(upgrade.modified == true)
+                mainCharacter_SO.modifiedMaxHealth -= 
+                (mainCharacter_SO.maxHealth * upgrade.Upercent/100);
+                break;
+            case Upgrade.skills.force:
+                
+                if(upgrade.modified == true)
+                mainCharacter_SO.modifiedForce -= 
+                (mainCharacter_SO.force * upgrade.Upercent/100);
+                break;
+            case Upgrade.skills.damage:
+                
+                if(upgrade.modified == true)
+                mainCharacter_SO.modifiedDamage -= 
+                (mainCharacter_SO.damage * upgrade.Upercent/100);
+                break;
+            case Upgrade.skills.attackRange:
+                
+                if(upgrade.modified == true)
+                mainCharacter_SO.modifiedAttackRange -= 
+                (mainCharacter_SO.attackRange * upgrade.Upercent/100);
+                break;
+        }
+
+        upgrade.modified = false;
     }
 }
