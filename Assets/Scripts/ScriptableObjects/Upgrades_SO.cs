@@ -27,6 +27,9 @@ public class Upgrade
     [Tooltip("What is the seller going to say when we select the upgrade")]
     [TextArea]
     public string DCDialogue;
+    [Tooltip("What is the seller going to say when The player has no money to buy this")]
+    [TextArea]
+    public string refuseDialogue;
     [Tooltip("Is this upgrade already sold?")]
     public bool sold;
     //This bool is to avoid an upgrade to modify a stat more than once

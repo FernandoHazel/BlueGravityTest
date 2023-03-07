@@ -14,14 +14,16 @@ public class Canvas : MonoBehaviour
     [SerializeField] MainCharacter_SO mainCharacter_SO;
     [SerializeField] TextMeshProUGUI canvasProteins;
     [SerializeField] TextMeshProUGUI shopProteins;
+    [SerializeField] TextMeshProUGUI DialogueText;
     [SerializeField] GameObject player;
     private List<GameObject> prefabList = new List<GameObject>();
     private List<GameObject> accessoriesList = new List<GameObject>();
-    public delegate void ActionReject();
-    public static event ActionReject rejected;
 
     private void Awake() 
     {
+        if(player == null)
+        player = GameObject.Find("Player");
+
         //Start the game with no upgrades
         foreach (Upgrade upgrade in upgrades_SO.upgrades)
         {
@@ -90,6 +92,7 @@ public class Canvas : MonoBehaviour
                 (
                     upgrade.sprite,
                     upgrade.UpgradeName,
+                    upgrade.DCDialogue,
                     upgrade.BuyCost.ToString(),
                     upgrade.Upercent.ToString(),
                     upgrade.sold
@@ -110,6 +113,7 @@ public class Canvas : MonoBehaviour
                 (
                     upgrade.sprite,
                     upgrade.UpgradeName,
+                    upgrade.DCDialogue,
                     upgrade.SellCost.ToString(),
                     upgrade.Upercent.ToString(),
                     upgrade.sold
@@ -124,6 +128,20 @@ public class Canvas : MonoBehaviour
         //Update the currency in the UI
         canvasProteins.text = mainCharacter_SO.inGameProteins.ToString() + " Proteins";
         shopProteins.text = mainCharacter_SO.inGameProteins.ToString() + " Proteins";
+    }
+
+    public void DisplayDialogue(string dialogue)
+    {
+        //The store keeper will display its dialogue here
+        DialogueText.text = dialogue;
+        Debug.Log(dialogue);
+    }
+
+    public void Reject(string refuseDialogue)
+    {
+        //The store keeper will display its dialogue here
+        DialogueText.text = refuseDialogue;
+        Debug.Log(refuseDialogue);
     }
 
     public void Buy(string buyUpdateName)
@@ -145,9 +163,8 @@ public class Canvas : MonoBehaviour
                 }
                 else
                 {
-                    //Reject the player to buy
-                    if(rejected != null)
-                    rejected();
+                    //Reject the player payment
+                    Reject(upgrade.refuseDialogue);
                 }
             }
         }

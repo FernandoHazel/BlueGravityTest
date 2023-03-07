@@ -21,7 +21,9 @@ MonoBehaviour:
     UpgradeName: more speed
     Upercent: 20
     DCDialogue: Too slow? With this upgrade you will be 20% faster
+    refuseDialogue: You will be faster as soon as you bring me more proteins
     sold: 0
+    modified: 0
   - sprite: {fileID: 21300000, guid: f7eb4a8c31f5a6542992224a4dfc95ed, type: 3}
     BuyCost: 1000
     SellCost: 700
@@ -30,7 +32,9 @@ MonoBehaviour:
     UpgradeName: more healt
     Upercent: 20
     DCDialogue: Don't worry about those scratches anymore
+    refuseDialogue: you'll have to settle for some band-aids
     sold: 0
+    modified: 0
   - sprite: {fileID: 21300000, guid: c50ccc25b9f1eeb49b255e54f7e691e2, type: 3}
     BuyCost: 1000
     SellCost: 700
@@ -39,7 +43,9 @@ MonoBehaviour:
     UpgradeName: more damage
     Upercent: 20
     DCDialogue: Those invaders better be prepared
+    refuseDialogue: Sorry, not enough cash
     sold: 0
+    modified: 0
   - sprite: {fileID: 21300000, guid: c50ccc25b9f1eeb49b255e54f7e691e2, type: 3}
     BuyCost: 1000
     SellCost: 700
@@ -48,4 +54,6 @@ MonoBehaviour:
     UpgradeName: more range
     Upercent: 20
     DCDialogue: distance is not going to be a problem any more
+    refuseDialogue: Want more range? give me more proteins!
     sold: 0
+    modified: 0

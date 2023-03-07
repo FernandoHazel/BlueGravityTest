@@ -13,19 +13,29 @@ public class UpgradeBehavior : MonoBehaviour
     [SerializeField] GameObject buyButton;
     [SerializeField] GameObject sellButton;
     private Canvas canvas;
-
+    private Button button;
+    public string DCDialogue;
+    
     private void Awake() 
     {
         canvas = GameObject.FindObjectOfType<Canvas>();
+        button = GetComponent<Button>();
     }
 
-    public void FillData(Sprite spriteData, string upgradeTextData, string costTextData, string percentage, bool sold)
+    public void FillData
+        (Sprite spriteData,
+        string upgradeNameData, 
+        string sellerDialogue, 
+        string costTextData, 
+        string percentage, 
+        bool sold)
     {
         //fill all the fields
         image.sprite = spriteData;
         percent.text = percentage + "%";
-        upgradeName.text = upgradeTextData;
-        costText.text = costTextData;
+        upgradeName.text = upgradeNameData;
+        costText.text = costTextData + " proteins";
+        DCDialogue = sellerDialogue;
 
         //Switch button depending if the upgrade is 
         //For sell o to buy
@@ -53,6 +63,13 @@ public class UpgradeBehavior : MonoBehaviour
         //Send the upgrade name to the canvas
         canvas.Sell(upgradeName.text);
         //Debug.Log("Selling "+ upgradeName.text);
+    }
+
+    public void IWasClicked()
+    {
+        //This is triggered when the update
+        //object is clicked
+        canvas.DisplayDialogue(DCDialogue);
     }
 
 }
