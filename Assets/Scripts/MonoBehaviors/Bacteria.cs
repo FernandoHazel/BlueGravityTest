@@ -105,7 +105,7 @@ public class Bacteria : MonoBehaviour, IDamagable
 
             if(distanceToPlayer < 4 && MainCharacter.isExhausted)
             {
-                Debug.Log(gameObject.name+" hunting player");
+                //Debug.Log(gameObject.name+" hunting player");
                 targetPos = player.Position;
 
                 //Hit the player

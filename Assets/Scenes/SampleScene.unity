@@ -2561,7 +2561,7 @@ PrefabInstance:
       objectReference: {fileID: 407672947386089230}
     - target: {fileID: 7161268268763027741, guid: f57c482bd543ad64cad401d13707983f, type: 3}
       propertyPath: smoothTime
-      value: 1
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f57c482bd543ad64cad401d13707983f, type: 3}
@@ -2852,6 +2852,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1482117234049804356, guid: 0a89a73e896ae854ca4b260e5c61ea5b, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1827622614070129350, guid: 0a89a73e896ae854ca4b260e5c61ea5b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2908,6 +2912,14 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5661345614947518131, guid: 0a89a73e896ae854ca4b260e5c61ea5b, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6443788265514432975, guid: 0a89a73e896ae854ca4b260e5c61ea5b, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 5739851890834353745}
     - target: {fileID: 7124849386179175033, guid: 0a89a73e896ae854ca4b260e5c61ea5b, type: 3}
       propertyPath: m_Name
       value: Canvas

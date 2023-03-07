@@ -136,4 +136,4 @@ MonoBehaviour:
   tracker: {fileID: 0}
   minCamPos: {x: -8, y: -5}
   maxCamPos: {x: 8, y: 5}
-  smoothTime: 1
+  smoothTime: 50

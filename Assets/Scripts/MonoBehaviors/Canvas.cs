@@ -14,14 +14,26 @@ public class Canvas : MonoBehaviour
     [SerializeField] MainCharacter_SO mainCharacter_SO;
     [SerializeField] TextMeshProUGUI canvasProteins;
     [SerializeField] TextMeshProUGUI shopProteins;
+    [SerializeField] GameObject player;
     private List<GameObject> prefabList = new List<GameObject>();
+    private List<GameObject> accessoriesList = new List<GameObject>();
     public delegate void ActionReject();
     public static event ActionReject rejected;
+
+    private void Awake() 
+    {
+        //Start the game with no upgrades
+        foreach (Upgrade upgrade in upgrades_SO.upgrades)
+        {
+            upgrade.sold = false;
+        }
+    }
     
     private void Start() 
     {
-        canvasProteins.text = mainCharacter_SO.proteins.ToString() + " Proteins";
-        shopProteins.text = mainCharacter_SO.proteins.ToString() + " Proteins";
+        canvasProteins.text = mainCharacter_SO.inGameProteins.ToString() + " Proteins";
+        shopProteins.text = mainCharacter_SO.inGameProteins.ToString() + " Proteins";
+        GenerateUpgrades();
     }
 
     //The dendritic cells calls these methods
@@ -48,8 +60,13 @@ public class Canvas : MonoBehaviour
 
     public void GenerateUpgrades()
     {
-        //first we destroy the previous prefabs and 
-        //clear the previous list
+        //First erase all the previous changes and to start again
+        foreach (GameObject item in accessoriesList)
+        {
+            Destroy(item);
+        }
+        accessoriesList.Clear();
+
         foreach (GameObject prefab in prefabList)
         {
             Destroy(prefab);
@@ -95,13 +112,16 @@ public class Canvas : MonoBehaviour
                     upgrade.Upercent.ToString(),
                     upgrade.sold
                 );
+
+                //Equip upgrades
+                Equip(upgrade);
             }
             
         }
 
         //Update the currency in the UI
-        canvasProteins.text = mainCharacter_SO.proteins.ToString() + " Proteins";
-        shopProteins.text = mainCharacter_SO.proteins.ToString() + " Proteins";
+        canvasProteins.text = mainCharacter_SO.inGameProteins.ToString() + " Proteins";
+        shopProteins.text = mainCharacter_SO.inGameProteins.ToString() + " Proteins";
     }
 
     public void Buy(string buyUpdateName)
@@ -112,10 +132,10 @@ public class Canvas : MonoBehaviour
             if(upgrade.UpgradeName == buyUpdateName)
             {
                 //When we found it check if the player has enough proteins to buy
-                if(mainCharacter_SO.proteins >= upgrade.BuyCost)
+                if(mainCharacter_SO.inGameProteins >= upgrade.BuyCost)
                 {
                     //We charge the player and mark the upgrade as sold
-                    mainCharacter_SO.proteins -= upgrade.BuyCost;
+                    mainCharacter_SO.inGameProteins -= upgrade.BuyCost;
                     upgrade.sold = true;
 
                     //Regenerate Updates for UI and the rest of the game
@@ -137,7 +157,7 @@ public class Canvas : MonoBehaviour
             if(upgrade.UpgradeName == sellUpdateName)
             {
                 //Pay the player and mark the update as not sold
-                mainCharacter_SO.proteins += upgrade.SellCost;
+                mainCharacter_SO.inGameProteins += upgrade.SellCost;
                 upgrade.sold = false;
 
                 //Regenerate Updates for UI and the rest of the game
@@ -146,10 +166,30 @@ public class Canvas : MonoBehaviour
         }
     }
 
+    //This is called when we collect proteins
     public void TakeProteins(int amount)
     {
-        mainCharacter_SO.proteins += amount;
-        canvasProteins.text = mainCharacter_SO.proteins.ToString() + " Proteins";
-        shopProteins.text = mainCharacter_SO.proteins.ToString() + " Proteins";
+        mainCharacter_SO.inGameProteins += amount;
+        canvasProteins.text = mainCharacter_SO.inGameProteins.ToString() + " Proteins";
+        shopProteins.text = mainCharacter_SO.inGameProteins.ToString() + " Proteins";
+    }
+
+    public void Equip(Upgrade upgrade)
+    {
+        //Equip the accessory
+        GameObject accessory = Instantiate(upgrade.accessory);
+        accessory.transform.SetParent(player.transform);
+        accessory.transform.localPosition = new Vector3(0,0,0);
+        accessoriesList.Add(accessory);
+
+        //Modify the stats
+        //Debug.Log(upgrade.UpgradeName + "'s enum ->" + upgrade.skill); 
+    }
+
+    public void Unequip()
+    {
+        //Destroy the accessory
+
+        //Modify the stats
     }
 }

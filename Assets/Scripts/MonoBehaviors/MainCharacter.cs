@@ -41,6 +41,15 @@ public class MainCharacter : MonoBehaviour, IDamagable
         ren = GetComponent<SpriteRenderer>();
         healthBar = GameObject.FindObjectOfType<HealthBar>();
 
+        //Suppose the player has no upgrades at the begging of the level (just for test)
+        //This can differ from the store
+        //I will change this if I add a save system
+        mainCharacter_SO.modifiedMaxHealth = mainCharacter_SO.maxHealth;
+        mainCharacter_SO.modifiedForce = mainCharacter_SO.force;
+        mainCharacter_SO.modifiedAttackRange = mainCharacter_SO.attackRange;
+        mainCharacter_SO.modifiedDamage = mainCharacter_SO.damage;
+        mainCharacter_SO.inGameProteins = mainCharacter_SO.defaultProteins;
+
     }
     private void Start() 
     {
@@ -48,7 +57,7 @@ public class MainCharacter : MonoBehaviour, IDamagable
         // fall when the game starts
         rb.gravityScale = 0;
         dead = false;
-        healt = mainCharacter_SO.maxHealt;
+        healt = mainCharacter_SO.modifiedMaxHealth;
 
         //this is just for test
         StartCoroutine(Exhauste());
@@ -73,7 +82,7 @@ public class MainCharacter : MonoBehaviour, IDamagable
         Vector2 movementValue = playerControl.Player.Move.ReadValue<Vector2>();
 
         //Move the player
-        rb.AddForce(movementValue * mainCharacter_SO.force, ForceMode2D.Force);
+        rb.AddForce(movementValue * mainCharacter_SO.modifiedForce, ForceMode2D.Force);
 
         //move the tracker for the camera
         Vector2 trackerPosition = new Vector2
@@ -92,7 +101,7 @@ public class MainCharacter : MonoBehaviour, IDamagable
                 if(Vector2.Distance(transform.position, bacteria.Position) <= mainCharacter_SO.attackRange && isExhausted == false)
                 {
                     //Generate damage on the bacteria
-                    bacteria.Damage(mainCharacter_SO.damage * Time.deltaTime);
+                    bacteria.Damage(mainCharacter_SO.modifiedDamage * Time.deltaTime);
                 }
             }
         }
@@ -110,7 +119,7 @@ public class MainCharacter : MonoBehaviour, IDamagable
             //target.TargetDamaged(mainCharacter_SO.maxHealt, healt);
 
             //obtain the amount of healt left
-            float percent = healt/mainCharacter_SO.maxHealt;
+            float percent = healt/mainCharacter_SO.modifiedMaxHealth;
             healthBar.On_damaged(percent);
 
             //Adjust the sprite color

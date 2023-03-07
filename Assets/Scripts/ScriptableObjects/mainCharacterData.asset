@@ -12,9 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60c20abf443c9aa4eac75b8c15062d4c, type: 3}
   m_Name: mainCharacterData
   m_EditorClassIdentifier: 
-  proteins: 5000
-  maxHealt: 100
-  Exhausted: 0
+  maxHealth: 100
+  modifiedMaxHealth: 100
   force: 10
+  modifiedForce: 10
   damage: 30
+  modifiedDamage: 30
   attackRange: 1
+  modifiedAttackRange: 1
+  Exhausted: 0
+  defaultProteins: 3000
+  inGameProteins: 0
