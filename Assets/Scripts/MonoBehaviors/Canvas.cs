@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Canvas : MonoBehaviour
 {
@@ -11,9 +12,17 @@ public class Canvas : MonoBehaviour
     [SerializeField] GameObject EquippedPanel;
     [SerializeField] Upgrades_SO upgrades_SO;
     [SerializeField] MainCharacter_SO mainCharacter_SO;
+    [SerializeField] TextMeshProUGUI canvasProteins;
+    [SerializeField] TextMeshProUGUI shopProteins;
     private List<GameObject> prefabList = new List<GameObject>();
     public delegate void ActionReject();
     public static event ActionReject rejected;
+    
+    private void Start() 
+    {
+        canvasProteins.text = mainCharacter_SO.proteins.ToString() + " Proteins";
+        shopProteins.text = mainCharacter_SO.proteins.ToString() + " Proteins";
+    }
 
     //The dendritic cells calls these methods
     public void DisplayShopButton()
@@ -89,6 +98,10 @@ public class Canvas : MonoBehaviour
             }
             
         }
+
+        //Update the currency in the UI
+        canvasProteins.text = mainCharacter_SO.proteins.ToString() + " Proteins";
+        shopProteins.text = mainCharacter_SO.proteins.ToString() + " Proteins";
     }
 
     public void Buy(string buyUpdateName)
@@ -131,5 +144,12 @@ public class Canvas : MonoBehaviour
                 GenerateUpgrades();
             }
         }
+    }
+
+    public void TakeProteins(int amount)
+    {
+        mainCharacter_SO.proteins += amount;
+        canvasProteins.text = mainCharacter_SO.proteins.ToString() + " Proteins";
+        shopProteins.text = mainCharacter_SO.proteins.ToString() + " Proteins";
     }
 }

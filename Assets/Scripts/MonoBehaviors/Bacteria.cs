@@ -98,13 +98,14 @@ public class Bacteria : MonoBehaviour, IDamagable
     //If the player is close and exhausted we attack him
     private void HuntPlayer()
     {
-        if(!player.isDead)
+        if(player.isDead == false)
         {
             float distanceToPlayer = 
             Vector2.Distance(transform.position, player.Position);
 
             if(distanceToPlayer < 4 && MainCharacter.isExhausted)
             {
+                Debug.Log(gameObject.name+" hunting player");
                 targetPos = player.Position;
 
                 //Hit the player

@@ -15,6 +15,7 @@ public class MainCharacter : MonoBehaviour, IDamagable
     private SpriteRenderer ren;
     [SerializeField] GameObject cameraTracker;
     [SerializeField] MainCharacter_SO mainCharacter_SO;
+    private HealthBar healthBar;
     public static bool isExhausted;
     private bool dead;
     public bool isDead
@@ -38,6 +39,7 @@ public class MainCharacter : MonoBehaviour, IDamagable
         rb = GetComponent<Rigidbody2D>();
         target = GetComponent<Target>();
         ren = GetComponent<SpriteRenderer>();
+        healthBar = GameObject.FindObjectOfType<HealthBar>();
 
     }
     private void Start() 
@@ -46,6 +48,7 @@ public class MainCharacter : MonoBehaviour, IDamagable
         // fall when the game starts
         rb.gravityScale = 0;
         dead = false;
+        healt = mainCharacter_SO.maxHealt;
 
         //this is just for test
         StartCoroutine(Exhauste());
@@ -64,6 +67,7 @@ public class MainCharacter : MonoBehaviour, IDamagable
 
     private void FixedUpdate() 
     {
+        //Debug.Log("Exhausted "+ isExhausted);
 
         //Get the input value
         Vector2 movementValue = playerControl.Player.Move.ReadValue<Vector2>();
@@ -79,16 +83,13 @@ public class MainCharacter : MonoBehaviour, IDamagable
         );
         cameraTracker.transform.position = trackerPosition;
 
-        //Update the exhausted state for the bacteria class
-        isExhausted = mainCharacter_SO.Exhausted;
-
         //Attack close enemies
         foreach (IDamagable bacteria in bacterias)
         {
             if(!bacteria.isDead)
             {
                 //If there is an enemy chose and we are not exhausted
-                if(Vector2.Distance(transform.position, bacteria.Position) <= mainCharacter_SO.attackRange && !isExhausted)
+                if(Vector2.Distance(transform.position, bacteria.Position) <= mainCharacter_SO.attackRange && isExhausted == false)
                 {
                     //Generate damage on the bacteria
                     bacteria.Damage(mainCharacter_SO.damage * Time.deltaTime);
@@ -100,8 +101,9 @@ public class MainCharacter : MonoBehaviour, IDamagable
     public void Damage(float damage)
     {
         //Only get damage if I'm exhausted
-        if(isExhausted)
+        if(isExhausted == true)
         {
+            //Debug.Log("Taking damage " + damage);
             healt -= damage;
             
             //Invoke event on target to update the healtbar
@@ -109,6 +111,7 @@ public class MainCharacter : MonoBehaviour, IDamagable
 
             //obtain the amount of healt left
             float percent = healt/mainCharacter_SO.maxHealt;
+            healthBar.On_damaged(percent);
 
             //Adjust the sprite color
             Color newColor = new Color(255, 255 * percent, 255 * percent, 255);
@@ -140,6 +143,6 @@ public class MainCharacter : MonoBehaviour, IDamagable
         //In the damage process
         yield return new WaitForSeconds(5);
         isExhausted = true;
-        Debug.Log("Exhausted");
+        
     }
 }

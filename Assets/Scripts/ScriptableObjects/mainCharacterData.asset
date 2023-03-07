@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60c20abf443c9aa4eac75b8c15062d4c, type: 3}
   m_Name: mainCharacterData
   m_EditorClassIdentifier: 
-  proteins: 99999
+  proteins: 5000
   maxHealt: 100
   Exhausted: 0
   force: 10
