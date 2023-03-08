@@ -3,24 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Target))]
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Collider2D))]
 public class Bacteria : MonoBehaviour, IDamagable
 {
+    public delegate void ActionDie();
+    public static event ActionDie bacteriaDied;
+    public delegate void ActionBorn();
+    public static event ActionBorn bacteriaBorn;
+    public static List<IDamagable> friendlyCells = new List<IDamagable>();
     private Vector3 targetPos;
     private Rigidbody2D rb;
-    private IDamagable player;
+    private GameObject player;
+    private IDamagable IPlayer;
     private float healt;
     private SpriteRenderer ren;
+    private Collider2D col;
     private Target target;
     [Tooltip("This is the time the bacteria will take to look for another target")]
     [SerializeField] Bacteria_SO bacteria_SO;
-    private bool dead;
-    public bool isDead
-    {
-        get
-       {
-           return dead;
-       }
-    }
+    
     public Vector3 Position
    {
        get
@@ -34,27 +37,34 @@ public class Bacteria : MonoBehaviour, IDamagable
         rb.gravityScale = 0;
         target = GetComponent<Target>();
         ren = GetComponent<SpriteRenderer>();
+        player = GameObject.Find("Player");
+        IPlayer = GameObject.Find("Player").GetComponent<IDamagable>();
+        col = GetComponent<Collider2D>();
     }
 
     private void OnEnable() 
     {
+        col.enabled = true;
+
+        //Register the spawn of the bacteria on the GameManager
+        GameManager.activeEnemies++;
+        if(bacteriaBorn != null)
+        bacteriaBorn();
+
         //Register in the list of bacterias so the main character
         //can find and destroy them
         MainCharacter.bacterias.Add(this);
 
-        player = GameObject.Find("Player").GetComponent<IDamagable>();
-    }
-    private void Start() 
-    {
         //The bacteria starts with full healt 
         //And looking for a target
         healt = bacteria_SO.maxHealt;
-        dead = false;
         ChooseTarget();
     }
 
     private void FixedUpdate() 
     {
+        //If the bacteria is dead can't do anything
+ 
         //Move the bacteria to the target
         Vector2 vectorToTarget = targetPos - transform.position;
         rb.AddForce(vectorToTarget * bacteria_SO.force, ForceMode2D.Force);
@@ -62,30 +72,32 @@ public class Bacteria : MonoBehaviour, IDamagable
         //Check if the player is available to be attacked
         HuntPlayer();
 
-        //Attack close enemies
-        foreach (IDamagable cell in FriendlyCell.friendlyCells)
+        if(friendlyCells.Count > 0)
         {
-            //Verify if the cell is not killed in the previous frame
-            if (!cell.isDead)
+            //Attack close enemies
+            foreach (IDamagable cell in friendlyCells)
             {
-                //If there is a cell close
-                if(Vector2.Distance(transform.position, cell.Position) <= bacteria_SO.attackRange)
+                if(cell != null)
                 {
-                    //Generate damage on the bacteria
-                    cell.Damage(bacteria_SO.damage * Time.deltaTime);
+                    //If there is a cell close
+                    if(Vector2.Distance(transform.position, cell.Position) <= bacteria_SO.attackRange)
+                    {
+                        //Generate damage on the bacteria
+                        cell.Damage(bacteria_SO.damage * Time.deltaTime);
+                    }
                 }
             }
-            
         }
-
-        
     }
 
     private void ChooseTarget()
     {
-        //The bacteria choose a random friendly cell to attack
-        int cell = Random.Range(0, FriendlyCell.friendlyCells.Count);
-        targetPos = FriendlyCell.friendlyCells[cell].Position;
+        if(friendlyCells.Count > 0)
+        {
+            //The bacteria choose a random friendly cell to attack
+            int cell = Random.Range(0, friendlyCells.Count);
+            targetPos = friendlyCells[cell].Position;
+        }
     }
 
     IEnumerator ReselectTarget()
@@ -98,39 +110,30 @@ public class Bacteria : MonoBehaviour, IDamagable
     //If the player is close and exhausted we attack him
     private void HuntPlayer()
     {
-        if(player.isDead == false)
+        if(player.activeSelf)
         {
             float distanceToPlayer = 
-            Vector2.Distance(transform.position, player.Position);
+            Vector2.Distance(transform.position, IPlayer.Position);
 
-            if(distanceToPlayer < 4 && MainCharacter.isExhausted)
+            if(distanceToPlayer < 2)
             {
                 //Debug.Log(gameObject.name+" hunting player");
-                targetPos = player.Position;
+                targetPos = IPlayer.Position;
 
                 //Hit the player
                 if(distanceToPlayer <= bacteria_SO.attackRange)
                 {
                     //Generate damage on the player
-                    player.Damage(bacteria_SO.damage * Time.deltaTime);
+                    IPlayer.Damage(bacteria_SO.damage * Time.deltaTime);
                 }
             }
-        }   
+        }
+        
     }
 
     public void Damage(float damage)
     {
         healt -= damage;
-        
-        //Invoke event on target to update the healtbar
-        //target.TargetDamaged(bacteria_SO.maxHealt, healt);
-
-        //obtain the amount of healt left
-        float percent = healt/bacteria_SO.maxHealt;
-
-        //Adjust the sprite color
-        Color newColor = new Color(255, 255 * percent, 255 * percent, 255);
-        ren.color = newColor;
 
         if(healt <= 0)
         {
@@ -139,18 +142,17 @@ public class Bacteria : MonoBehaviour, IDamagable
     }
     private void Die()
     {
-        dead = true;
-        StartCoroutine(DestroyObject());
+        gameObject.SetActive(false);
     }
     
-    IEnumerator DestroyObject()
+    private void OnDisable() 
     {
-        //wait top destroy to avoid missing reference exceptions
-        //In the damage process
-        yield return new WaitForSeconds(.1f);
-        Destroy(gameObject);
+        MainCharacter.bacterias.Remove(this);
+        GameManager.activeEnemies--;
+
+        if(bacteriaDied != null)
+        bacteriaDied();
+
+        col.enabled = false;
     }
-
-    
-
 }

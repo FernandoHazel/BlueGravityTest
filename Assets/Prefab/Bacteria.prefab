@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6850266220666299119}
   - component: {fileID: 6850266220666299118}
   - component: {fileID: 2034486024227637718}
+  - component: {fileID: 3807830302957532939}
   m_Layer: 0
   m_Name: Bacteria
   m_TagString: Untagged
@@ -137,3 +138,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bacteria_SO: {fileID: 11400000, guid: 71d494b653d24ef4aa8fd55f23d9f0ee, type: 2}
+--- !u!114 &3807830302957532939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6850266220666299122}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 411060de4483b5e4c9847cd3cbc18554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetColor: {r: 1, g: 0, b: 0, a: 1}
+  needBoxIndicator: 0
+  needArrowIndicator: 0
+  needDistanceText: 0
+  indicator: {fileID: 0}

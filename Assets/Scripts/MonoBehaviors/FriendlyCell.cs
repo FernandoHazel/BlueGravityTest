@@ -3,22 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Target))]
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Collider2D))]
 public class FriendlyCell : MonoBehaviour, IDamagable
 {
-    public static List<IDamagable> friendlyCells = new List<IDamagable>();
+    public delegate void ActionDie();
+    public static event ActionDie FriendlyCellDied;
     private float healt;
     private Rigidbody2D rb;
     private SpriteRenderer ren;
     private Target target;
+    private Collider2D col;
     [SerializeField] FriendlyCell_SO friendlyCell_SO;
-    private bool dead;
-    public bool isDead
-    {
-        get
-       {
-           return dead;
-       }
-    }
     public Vector3 Position
    {
        get
@@ -30,27 +27,27 @@ public class FriendlyCell : MonoBehaviour, IDamagable
     {
         //Add the friendly cell to a static array
         //so let the bacterias can find her
-        friendlyCells.Add(this);
+        Bacteria.friendlyCells.Add(this);
 
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0;
         target = GetComponent<Target>();
         ren = GetComponent<SpriteRenderer>();
+        col = GetComponent<Collider2D>();
+        GameManager.friendlyCells++;
     }
 
     private void Start() 
     {
         //The friendly cell starts at maximum healt
         healt = friendlyCell_SO.maxHealt;
-        dead = false;
+        col.enabled = true;
+
     }
 
     public void Damage(float damage)
     {
         healt -= damage;
-
-        //Invoke event on target to update the healtbar
-        //target.TargetDamaged(friendlyCell_SO.maxHealt, healt);
 
         //obtain the amount of healt left
         float percent = healt/friendlyCell_SO.maxHealt;
@@ -59,7 +56,6 @@ public class FriendlyCell : MonoBehaviour, IDamagable
         Color newColor = new Color(255, 255 * percent, 255 * percent, 255);
         ren.color = newColor;
 
-        //Debug.Log(gameObject.name + percent );
 
         if(healt <= 0)
         {
@@ -69,16 +65,12 @@ public class FriendlyCell : MonoBehaviour, IDamagable
 
     private void Die()
     {
-        dead = true;
-        StartCoroutine(DestroyObject());
-    }
-    
-    IEnumerator DestroyObject()
-    {
-        //wait top destroy to avoid missing reference exceptions
-        //In the damage process
-        yield return new WaitForSeconds(.1f);
-        Destroy(gameObject);
-    }
+        Bacteria.friendlyCells.Remove(this);
+        GameManager.friendlyCells--;
+       if(FriendlyCellDied != null)
+        FriendlyCellDied();
 
+        col.enabled = false;
+        gameObject.SetActive(false);
+    }
 }

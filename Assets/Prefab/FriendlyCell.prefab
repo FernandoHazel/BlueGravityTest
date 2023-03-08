@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8479020249885378843}
   - component: {fileID: 8479020249885378844}
   - component: {fileID: 7922959418627691209}
+  - component: {fileID: 5479752504032364263}
   m_Layer: 0
   m_Name: FriendlyCell
   m_TagString: Untagged
@@ -137,3 +138,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   friendlyCell_SO: {fileID: 11400000, guid: 88eabe3a3f1ee414880a760ed197a4a3, type: 2}
+--- !u!114 &5479752504032364263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8479020249885378840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 411060de4483b5e4c9847cd3cbc18554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetColor: {r: 0.3019608, g: 0.7372549, b: 0.16862746, a: 1}
+  needBoxIndicator: 0
+  needArrowIndicator: 1
+  needDistanceText: 1
+  indicator: {fileID: 0}

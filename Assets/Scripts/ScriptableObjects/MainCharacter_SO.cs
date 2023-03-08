@@ -15,8 +15,7 @@ public class MainCharacter_SO : ScriptableObject
     public float attackRange;
     public float modifiedAttackRange;
 
-    [Header("properties")]
-    public bool Exhausted;
+    [Header("Properties")]
     public int defaultProteins;
     [HideInInspector] public int inGameProteins;
 }

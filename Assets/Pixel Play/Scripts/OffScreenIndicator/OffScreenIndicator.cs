@@ -87,7 +87,7 @@ public class OffScreenIndicator : MonoBehaviour
     {
         if(active)
         {
-            //targets.Add(target);
+            targets.Add(target);
         }
         else
         {

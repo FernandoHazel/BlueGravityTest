@@ -4,6 +4,9 @@ using UnityEngine;
 
 //This class requires a rigidbody2D component in the game object
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Target))]
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Collider2D))]
 public class MainCharacter : MonoBehaviour, IDamagable
 {
     //Setting up the player control
@@ -16,15 +19,7 @@ public class MainCharacter : MonoBehaviour, IDamagable
     [SerializeField] GameObject cameraTracker;
     [SerializeField] MainCharacter_SO mainCharacter_SO;
     private HealthBar healthBar;
-    public static bool isExhausted;
-    private bool dead;
-    public bool isDead
-    {
-        get
-       {
-           return dead;
-       }
-    }
+    private Collider2D col;
     public Vector3 Position
    {
        get
@@ -39,6 +34,7 @@ public class MainCharacter : MonoBehaviour, IDamagable
         rb = GetComponent<Rigidbody2D>();
         target = GetComponent<Target>();
         ren = GetComponent<SpriteRenderer>();
+        col = GetComponent<Collider2D>();
         healthBar = GameObject.FindObjectOfType<HealthBar>();
 
         //Suppose the player has no upgrades at the begging of the level (just for test)
@@ -56,11 +52,8 @@ public class MainCharacter : MonoBehaviour, IDamagable
         //Make sure the game object is not going to
         // fall when the game starts
         rb.gravityScale = 0;
-        dead = false;
         healt = mainCharacter_SO.modifiedMaxHealth;
-
-        //this is just for test
-        StartCoroutine(Exhauste());
+        col.enabled = true;
     }
     private void OnEnable() 
     {
@@ -76,9 +69,6 @@ public class MainCharacter : MonoBehaviour, IDamagable
 
     private void FixedUpdate() 
     {
-        //Debug.Log("Exhausted "+ isExhausted);
-        //Debug.Log("ModifiedMaxHealth "+ mainCharacter_SO.modifiedMaxHealth);
-
         //Get the input value
         Vector2 movementValue = playerControl.Player.Move.ReadValue<Vector2>();
 
@@ -94,12 +84,12 @@ public class MainCharacter : MonoBehaviour, IDamagable
         cameraTracker.transform.position = trackerPosition;
 
         //Attack close enemies
-        foreach (IDamagable bacteria in bacterias)
+        if(bacterias.Count > 0)
         {
-            if(!bacteria.isDead)
+            foreach (IDamagable bacteria in bacterias)
             {
                 //If there is an enemy chose and we are not exhausted
-                if(Vector2.Distance(transform.position, bacteria.Position) <= mainCharacter_SO.attackRange && isExhausted == false)
+                if(Vector2.Distance(transform.position, bacteria.Position) <= mainCharacter_SO.attackRange)
                 {
                     //Generate damage on the bacteria
                     bacteria.Damage(mainCharacter_SO.modifiedDamage * Time.deltaTime);
@@ -110,49 +100,26 @@ public class MainCharacter : MonoBehaviour, IDamagable
 
     public void Damage(float damage)
     {
-        //Only get damage if I'm exhausted
-        if(isExhausted == true)
+        healt -= damage;
+
+        //obtain the amount of healt left
+        float percent = healt/mainCharacter_SO.modifiedMaxHealth;
+        healthBar.On_damaged(percent);
+
+        //Adjust the sprite color
+        Color newColor = new Color(255, 255 * percent, 255 * percent, 255);
+        ren.color = newColor;
+
+        if(healt <= 0)
         {
-            //Debug.Log("Taking damage " + damage);
-            healt -= damage;
-            
-            //Invoke event on target to update the healtbar
-            //target.TargetDamaged(mainCharacter_SO.maxHealt, healt);
-
-            //obtain the amount of healt left
-            float percent = healt/mainCharacter_SO.modifiedMaxHealth;
-            healthBar.On_damaged(percent);
-
-            //Adjust the sprite color
-            Color newColor = new Color(255, 255 * percent, 255 * percent, 255);
-            ren.color = newColor;
-
-            if(healt <= 0)
-            {
-                Die();
-            }
+            Die();
         }
+
     }
 
     private void Die()
     {
-        dead = true;
-        StartCoroutine(DestroyObject());
-    }
-    
-    IEnumerator DestroyObject()
-    {
-        yield return new WaitForSeconds(.1f);
-        ren.enabled = false;
-    }
-
-    //This is just for test
-    IEnumerator Exhauste()
-    {
-        //wait top destroy to avoid missing reference exceptions
-        //In the damage process
-        yield return new WaitForSeconds(5);
-        isExhausted = true;
-        
+        col.enabled = false;
+        gameObject.SetActive(false);
     }
 }

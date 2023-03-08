@@ -13,6 +13,8 @@ public class Canvas : MonoBehaviour
     [SerializeField] Upgrades_SO upgrades_SO;
     [SerializeField] MainCharacter_SO mainCharacter_SO;
     [SerializeField] TextMeshProUGUI canvasProteins;
+    [SerializeField] TextMeshProUGUI friendlyCells;
+    [SerializeField] TextMeshProUGUI activeEnemies;
     [SerializeField] TextMeshProUGUI shopProteins;
     [SerializeField] TextMeshProUGUI DialogueText;
     [SerializeField] GameObject player;
@@ -30,9 +32,24 @@ public class Canvas : MonoBehaviour
             upgrade.sold = false;
         }
     }
+
+    private void OnEnable() 
+    {
+        Bacteria.bacteriaBorn += UpdateActiveEnemies;
+        Bacteria.bacteriaDied += UpdateActiveEnemies;
+        FriendlyCell.FriendlyCellDied += UpdateActiveFriendlyCells;
+    }
+    private void OnDisable() 
+    {
+        Bacteria.bacteriaBorn -= UpdateActiveEnemies;
+        Bacteria.bacteriaDied -= UpdateActiveEnemies;
+        FriendlyCell.FriendlyCellDied -= UpdateActiveFriendlyCells;
+    }
     
     private void Start() 
     {
+        UpdateActiveEnemies();
+        UpdateActiveFriendlyCells();
         canvasProteins.text = mainCharacter_SO.inGameProteins.ToString() + " Proteins";
         shopProteins.text = mainCharacter_SO.inGameProteins.ToString() + " Proteins";
         GenerateUpgrades();
@@ -58,6 +75,15 @@ public class Canvas : MonoBehaviour
     {
         ShopPanel.SetActive(false);
         Time.timeScale = 1;
+    }
+
+    public void UpdateActiveEnemies()
+    {
+        activeEnemies.text = GameManager.activeEnemies + " active enemies";
+    }
+    private void UpdateActiveFriendlyCells()
+    {
+        friendlyCells.text = GameManager.friendlyCells + " friendly cells";
     }
 
     public void GenerateUpgrades()
@@ -134,14 +160,12 @@ public class Canvas : MonoBehaviour
     {
         //The store keeper will display its dialogue here
         DialogueText.text = dialogue;
-        Debug.Log(dialogue);
     }
 
     public void Reject(string refuseDialogue)
     {
         //The store keeper will display its dialogue here
         DialogueText.text = refuseDialogue;
-        Debug.Log(refuseDialogue);
     }
 
     public void Buy(string buyUpdateName)
