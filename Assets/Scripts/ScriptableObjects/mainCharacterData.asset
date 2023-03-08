@@ -20,6 +20,7 @@ MonoBehaviour:
   modifiedDamage: 30
   attackRange: 1
   modifiedAttackRange: 1
-  Exhausted: 0
   defaultProteins: 3000
-  inGameProteins: 0
+  proteinsItemValue: 200
+  BlueProteinValue: 10
+  inGameProteins: 3200

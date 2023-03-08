@@ -7,16 +7,18 @@ public class MainCharacter_SO : ScriptableObject
 {
     [Header("Skills")]
     public float maxHealth;
-    public float modifiedMaxHealth;
+    [HideInInspector] public float modifiedMaxHealth;
     public float force;
-    public float modifiedForce;
+    [HideInInspector] public float modifiedForce;
     public float damage;
-    public float modifiedDamage;
+    [HideInInspector] public float modifiedDamage;
     public float attackRange;
-    public float modifiedAttackRange;
+    [HideInInspector] public float modifiedAttackRange;
 
     [Header("Properties")]
     public int defaultProteins;
+    public int proteinsItemValue;
+    public int BlueProteinValue;
     [HideInInspector] public int inGameProteins;
 }
 

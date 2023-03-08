@@ -38,12 +38,14 @@ public class Canvas : MonoBehaviour
         Bacteria.bacteriaBorn += UpdateActiveEnemies;
         Bacteria.bacteriaDied += UpdateActiveEnemies;
         FriendlyCell.FriendlyCellDied += UpdateActiveFriendlyCells;
+        YellowProtein.proteinCollected += CollectProtein;
     }
     private void OnDisable() 
     {
         Bacteria.bacteriaBorn -= UpdateActiveEnemies;
         Bacteria.bacteriaDied -= UpdateActiveEnemies;
         FriendlyCell.FriendlyCellDied -= UpdateActiveFriendlyCells;
+        YellowProtein.proteinCollected -= CollectProtein;
     }
     
     private void Start() 
@@ -84,6 +86,12 @@ public class Canvas : MonoBehaviour
     private void UpdateActiveFriendlyCells()
     {
         friendlyCells.text = GameManager.friendlyCells + " friendly cells";
+    }
+    public void CollectProtein()
+    {
+        mainCharacter_SO.inGameProteins += mainCharacter_SO.proteinsItemValue;
+        canvasProteins.text = mainCharacter_SO.inGameProteins.ToString() + " Proteins";
+        shopProteins.text = mainCharacter_SO.inGameProteins.ToString() + " Proteins";
     }
 
     public void GenerateUpgrades()
@@ -211,12 +219,6 @@ public class Canvas : MonoBehaviour
     }
 
     //This is called when we collect proteins
-    public void TakeProteins(int amount)
-    {
-        mainCharacter_SO.inGameProteins += amount;
-        canvasProteins.text = mainCharacter_SO.inGameProteins.ToString() + " Proteins";
-        shopProteins.text = mainCharacter_SO.inGameProteins.ToString() + " Proteins";
-    }
 
     public void Equip(Upgrade upgrade)
     {

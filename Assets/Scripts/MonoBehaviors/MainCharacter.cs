@@ -13,7 +13,7 @@ public class MainCharacter : MonoBehaviour, IDamagable
     private PlayerControl playerControl;
     public static List<IDamagable> bacterias = new List<IDamagable>();
     private Rigidbody2D rb;
-    private float healt;
+    public static float healt;
     private Target target;
     private SpriteRenderer ren;
     [SerializeField] GameObject cameraTracker;
