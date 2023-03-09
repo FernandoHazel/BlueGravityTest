@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+[RequireComponent(typeof(AudioSource))]
 public class Canvas : MonoBehaviour
 {
     [SerializeField] GameObject shopButton;
@@ -17,6 +17,9 @@ public class Canvas : MonoBehaviour
     [SerializeField] TextMeshProUGUI activeEnemies;
     [SerializeField] TextMeshProUGUI shopProteins;
     [SerializeField] TextMeshProUGUI DialogueText;
+    [SerializeField] AudioClip buy;
+    [SerializeField] AudioClip sell;
+    private AudioSource AS;
 
     [SerializeField] GameObject player;
     private List<GameObject> prefabList = new List<GameObject>();
@@ -24,6 +27,8 @@ public class Canvas : MonoBehaviour
 
     private void Awake() 
     {
+        AS = GetComponent<AudioSource>();
+
         if(player == null)
         player = GameObject.Find("Player");
 
@@ -179,6 +184,8 @@ public class Canvas : MonoBehaviour
 
     public void Buy(string buyUpdateName)
     {
+        AS.PlayOneShot(buy);
+
         //Look for the update in the database
         foreach (Upgrade upgrade in upgrades_SO.upgrades)
         {
@@ -204,6 +211,8 @@ public class Canvas : MonoBehaviour
     }
     public void Sell(string sellUpdateName)
     {
+        AS.PlayOneShot(sell);
+
         //Look for the update in the database
         foreach (Upgrade upgrade in upgrades_SO.upgrades)
         {

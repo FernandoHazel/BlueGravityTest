@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Target))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(AudioSource))]
 public class FriendlyCell : MonoBehaviour, IDamagable
 {
     public delegate void ActionDie();
@@ -19,6 +20,8 @@ public class FriendlyCell : MonoBehaviour, IDamagable
     private Collider2D col;
     [SerializeField] FriendlyCell_SO friendlyCell_SO;
     [SerializeField] GameObject onKilled_PS;
+    [SerializeField] AudioClip killed;
+    private AudioSource AS;
     public Vector3 Position
    {
        get
@@ -37,6 +40,7 @@ public class FriendlyCell : MonoBehaviour, IDamagable
         target = GetComponent<Target>();
         ren = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
+        AS = GetComponent<AudioSource>();
         GameManager.friendlyCells++;
     }
 
@@ -68,6 +72,8 @@ public class FriendlyCell : MonoBehaviour, IDamagable
 
     private void Die()
     {
+        AS.PlayOneShot(killed);
+
         GameObject ps = Instantiate(onKilled_PS);
         ps.transform.position = transform.position;
 
@@ -85,6 +91,13 @@ public class FriendlyCell : MonoBehaviour, IDamagable
         FriendlyCellDied();
 
         col.enabled = false;
+        StartCoroutine(DestroyObject());
+    }
+
+    IEnumerator DestroyObject()
+    {
+        yield return new WaitForSeconds(1);
+        //Hide the protein Item
         gameObject.SetActive(false);
     }
 }

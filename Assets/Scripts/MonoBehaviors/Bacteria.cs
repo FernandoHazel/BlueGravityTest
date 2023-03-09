@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Target))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(AudioSource))]
 public class Bacteria : MonoBehaviour, IDamagable
 {
     public delegate void ActionDie();
@@ -145,7 +146,7 @@ public class Bacteria : MonoBehaviour, IDamagable
     }
     private void Die()
     {
-        gameObject.SetActive(false);
+        StartCoroutine(DestroyObject());
     }
     
     private void OnDisable() 
@@ -166,5 +167,12 @@ public class Bacteria : MonoBehaviour, IDamagable
         bacteriaDied();
 
         col.enabled = false;
+    }
+
+    IEnumerator DestroyObject()
+    {
+        yield return new WaitForSeconds(1);
+        //Hide the protein Item
+        gameObject.SetActive(false);
     }
 }

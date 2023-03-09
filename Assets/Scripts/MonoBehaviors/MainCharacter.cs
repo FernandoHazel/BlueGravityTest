@@ -8,6 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(AudioSource))]
 public class MainCharacter : MonoBehaviour, IDamagable
 {
     //Setting up the player control
@@ -23,6 +24,8 @@ public class MainCharacter : MonoBehaviour, IDamagable
     private HealthBar healthBar;
     private Collider2D col;
     private Animator anim;
+    [SerializeField] AudioClip killed;
+    private AudioSource AS;
     public Vector3 Position
    {
        get
@@ -39,6 +42,7 @@ public class MainCharacter : MonoBehaviour, IDamagable
         ren = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
         anim = GetComponent<Animator>();
+        AS = GetComponent<AudioSource>();
         healthBar = GameObject.FindObjectOfType<HealthBar>();
 
         //Suppose the player has no upgrades at the begging of the level (just for test)
@@ -97,6 +101,11 @@ public class MainCharacter : MonoBehaviour, IDamagable
                 {
                     //Generate damage on the bacteria
                     bacteria.Damage(mainCharacter_SO.modifiedDamage * Time.deltaTime);
+
+                    if(Time.frameCount % 30 == 0)
+                    {
+                        AS.PlayOneShot(killed);
+                    }
                 }
             }
         }
@@ -123,10 +132,20 @@ public class MainCharacter : MonoBehaviour, IDamagable
 
     private void Die()
     {
+        AS.PlayOneShot(killed);
+
         GameObject ps = Instantiate(onKilled_PS);
         ps.transform.position = transform.position;
-        
+
         col.enabled = false;
+        
+        StartCoroutine(DestroyObject());
+    }
+
+    IEnumerator DestroyObject()
+    {
+        yield return new WaitForSeconds(1);
+        //Hide the protein Item
         gameObject.SetActive(false);
     }
 }
