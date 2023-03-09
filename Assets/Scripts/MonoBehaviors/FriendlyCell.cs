@@ -10,12 +10,15 @@ public class FriendlyCell : MonoBehaviour, IDamagable
 {
     public delegate void ActionDie();
     public static event ActionDie FriendlyCellDied;
+    public delegate void ActionLoose();
+    public static event ActionLoose lost;
     private float healt;
     private Rigidbody2D rb;
     private SpriteRenderer ren;
     private Target target;
     private Collider2D col;
     [SerializeField] FriendlyCell_SO friendlyCell_SO;
+    [SerializeField] GameObject onKilled_PS;
     public Vector3 Position
    {
        get
@@ -65,8 +68,19 @@ public class FriendlyCell : MonoBehaviour, IDamagable
 
     private void Die()
     {
+        GameObject ps = Instantiate(onKilled_PS);
+        ps.transform.position = transform.position;
+
         Bacteria.friendlyCells.Remove(this);
         GameManager.friendlyCells--;
+
+        //If all the cells are dead player loose
+        if(GameManager.friendlyCells <= 0 && lost != null)
+        {
+            lost();
+        }
+
+
        if(FriendlyCellDied != null)
         FriendlyCellDied();
 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2520093286117394983}
   - component: {fileID: 8158993037160545656}
   m_Layer: 0
-  m_Name: CollectablesPool
+  m_Name: Collectables
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,5 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   YProteinPrefab: {fileID: 3485546970638631747, guid: 6e180c181fbd3eb4f9863a2ebd5484e1, type: 3}
   BProteinPrefab: {fileID: 1759959610027403742, guid: bb12be84ea6ca5740a4148c43227bb6b, type: 3}
+  maxProteins: 0
   BPSpawnTime: 20
   YPSpawnTime: 20

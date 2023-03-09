@@ -7,6 +7,7 @@ public class YellowProtein : MonoBehaviour, ICollectable
 {
     public delegate void ActionCollect();
     public static event ActionCollect proteinCollected;
+    [SerializeField] GameObject OnCollected_PS;
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
@@ -18,6 +19,9 @@ public class YellowProtein : MonoBehaviour, ICollectable
 
     public void Collect()
     {
+        GameObject ps = Instantiate(OnCollected_PS);
+        ps.transform.position = transform.position;
+
         if(proteinCollected != null)
         proteinCollected();
 

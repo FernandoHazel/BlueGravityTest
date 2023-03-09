@@ -139,6 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   friendlyCell_SO: {fileID: 11400000, guid: 88eabe3a3f1ee414880a760ed197a4a3, type: 2}
+  onKilled_PS: {fileID: 3036358073691245906, guid: f6d08dd9bbe3ef54a87fef75f4f0f882, type: 3}
 --- !u!114 &5479752504032364263
 MonoBehaviour:
   m_ObjectHideFlags: 0

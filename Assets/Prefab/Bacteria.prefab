@@ -139,6 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bacteria_SO: {fileID: 11400000, guid: 71d494b653d24ef4aa8fd55f23d9f0ee, type: 2}
+  OnKilled_PS: {fileID: 3036358073691245906, guid: e5aa98e540c3b044daaa959279545679, type: 3}
 --- !u!114 &3807830302957532939
 MonoBehaviour:
   m_ObjectHideFlags: 0

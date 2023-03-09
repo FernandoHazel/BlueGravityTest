@@ -115,3 +115,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCharacter_SO: {fileID: 11400000, guid: 09329896744a74d4f81282e69fb2fb08, type: 2}
+  OnCollected_PS: {fileID: 3364727893102428183, guid: 8cfefd0576fe5ae4c85505e4af776b23, type: 3}

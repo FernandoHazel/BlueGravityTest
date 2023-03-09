@@ -18,6 +18,7 @@ public class MainCharacter : MonoBehaviour, IDamagable
     private Target target;
     private SpriteRenderer ren;
     [SerializeField] GameObject cameraTracker;
+    [SerializeField] GameObject onKilled_PS;
     [SerializeField] MainCharacter_SO mainCharacter_SO;
     private HealthBar healthBar;
     private Collider2D col;
@@ -122,6 +123,9 @@ public class MainCharacter : MonoBehaviour, IDamagable
 
     private void Die()
     {
+        GameObject ps = Instantiate(onKilled_PS);
+        ps.transform.position = transform.position;
+        
         col.enabled = false;
         gameObject.SetActive(false);
     }

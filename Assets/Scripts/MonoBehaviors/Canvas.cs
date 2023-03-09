@@ -17,6 +17,7 @@ public class Canvas : MonoBehaviour
     [SerializeField] TextMeshProUGUI activeEnemies;
     [SerializeField] TextMeshProUGUI shopProteins;
     [SerializeField] TextMeshProUGUI DialogueText;
+
     [SerializeField] GameObject player;
     private List<GameObject> prefabList = new List<GameObject>();
     private List<GameObject> accessoriesList = new List<GameObject>();

@@ -7,6 +7,7 @@ public class BlueProtein : MonoBehaviour
 {
     private HealthBar healthBar;
     [SerializeField] MainCharacter_SO mainCharacter_SO;
+    [SerializeField] GameObject OnCollected_PS;
     private void Start() 
     {
         healthBar = GameObject.FindObjectOfType<HealthBar>();
@@ -21,6 +22,9 @@ public class BlueProtein : MonoBehaviour
 
     public void Collect()
     {
+        GameObject ps = Instantiate(OnCollected_PS);
+        ps.transform.position = transform.position;
+
         //Add the health to the player but avoid to exceed
         MainCharacter.healt += mainCharacter_SO.BlueProteinValue;
         if(MainCharacter.healt > mainCharacter_SO.modifiedMaxHealth)

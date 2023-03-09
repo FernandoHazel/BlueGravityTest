@@ -8,7 +8,7 @@ public class EnemyRandomGenerator : MonoBehaviour
     //amount of enemies within a given range from a random 
     //generator that I have on the map, I can change 
     //the amount of generators and its positions on the level
-    [SerializeField] int generationSeconds = 10;
+    public int generationSeconds = 10;
     [SerializeField] int MaxAmount = 500;
     [SerializeField] GameObject enemyPool;
     [SerializeField] GameObject enemyPrefab;

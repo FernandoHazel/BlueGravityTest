@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollectactablesPool : MonoBehaviour
+public class Collectactables : MonoBehaviour
 {
     private MainCamera cam;
     [SerializeField] GameObject YProteinPrefab; //Yellow protein prefab
     [SerializeField] GameObject BProteinPrefab; //Blue protein prefab
+    [SerializeField] float maxProteins;
     [Tooltip("Blue protein spawn time")]
     [SerializeField] float BPSpawnTime;
     [Tooltip("Yellow protein spawn time")]
     [SerializeField] float YPSpawnTime;
+    private List<GameObject> YProteinList = new List<GameObject>();
+    private List<GameObject> BProteinList = new List<GameObject>();
 
     private void Awake() 
     {
@@ -22,6 +25,12 @@ public class CollectactablesPool : MonoBehaviour
         //Start the proteins generation
         StartCoroutine(GenerateBProtein());
         StartCoroutine(GenerateYProtein());
+
+        for (int i = 0; i < maxProteins; i++)
+        {
+            GameObject BlueProtein = Instantiate(BProteinPrefab);
+            GameObject YellowProtein = Instantiate(YProteinPrefab);
+        }
     }
 
     //Generate blue protein

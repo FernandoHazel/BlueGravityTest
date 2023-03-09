@@ -12,6 +12,8 @@ public class Bacteria : MonoBehaviour, IDamagable
     public static event ActionDie bacteriaDied;
     public delegate void ActionBorn();
     public static event ActionBorn bacteriaBorn;
+    public delegate void ActionWin();
+    public static event ActionWin Won;
     public static List<IDamagable> friendlyCells = new List<IDamagable>();
     private Vector3 targetPos;
     private Rigidbody2D rb;
@@ -23,6 +25,7 @@ public class Bacteria : MonoBehaviour, IDamagable
     private Target target;
     [Tooltip("This is the time the bacteria will take to look for another target")]
     [SerializeField] Bacteria_SO bacteria_SO;
+    [SerializeField] GameObject OnKilled_PS;
     
     public Vector3 Position
    {
@@ -149,6 +152,15 @@ public class Bacteria : MonoBehaviour, IDamagable
     {
         MainCharacter.bacterias.Remove(this);
         GameManager.activeEnemies--;
+        
+        GameObject ps = Instantiate(OnKilled_PS);
+        ps.transform.position = transform.position;
+
+        //If all the enemies are dead player wins
+        if(GameManager.activeEnemies <= 0 && GameManager.canWin && Won != null)
+        {
+            Won();
+        }
 
         if(bacteriaDied != null)
         bacteriaDied();
