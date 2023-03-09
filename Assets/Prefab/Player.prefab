@@ -45,6 +45,8 @@ GameObject:
   - component: {fileID: 6038663510790218366}
   - component: {fileID: 6038663510790218367}
   - component: {fileID: 6038663510790218353}
+  - component: {fileID: 140918979460088528}
+  - component: {fileID: 6017370430555591952}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -61,7 +63,7 @@ Transform:
   m_GameObject: {fileID: 6038663510790218363}
   m_LocalRotation: {x: -0, y: -0, z: 0.7123138, w: 0.7018612}
   m_LocalPosition: {x: -0.71, y: -1.5699999, z: 0}
-  m_LocalScale: {x: 1.18413, y: 1.18413, z: 1.1841301}
+  m_LocalScale: {x: 0.112485066, y: 0.11096478, z: 0.15672994}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5615119951977639891}
@@ -108,8 +110,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7c9e64651f7cafc40aad69afff35dcd2, type: 3}
+  m_SortingOrder: 3
+  m_Sprite: {fileID: 21300000, guid: 463ed435946b5b54cb8a0abcda8a029a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -168,9 +170,9 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.021537669, y: -0.013917315}
-  m_Size: {x: 0.50003284, y: 0.35983506}
-  m_Direction: 1
+  m_Offset: {x: 0.04767176, y: 0.11802214}
+  m_Size: {x: 4.4750094, y: 8.187659}
+  m_Direction: 0
 --- !u!114 &6038663510790218353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,3 +203,40 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &140918979460088528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6038663510790218363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 411060de4483b5e4c9847cd3cbc18554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetColor: {r: 1, g: 0, b: 0, a: 1}
+  needBoxIndicator: 1
+  needArrowIndicator: 1
+  needDistanceText: 1
+  indicator: {fileID: 0}
+--- !u!95 &6017370430555591952
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6038663510790218363}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7bb89d8d228fd224999d4400e1963e7c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

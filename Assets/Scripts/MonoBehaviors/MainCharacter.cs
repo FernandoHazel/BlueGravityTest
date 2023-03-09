@@ -7,6 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(Target))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Animator))]
 public class MainCharacter : MonoBehaviour, IDamagable
 {
     //Setting up the player control
@@ -20,6 +21,7 @@ public class MainCharacter : MonoBehaviour, IDamagable
     [SerializeField] MainCharacter_SO mainCharacter_SO;
     private HealthBar healthBar;
     private Collider2D col;
+    private Animator anim;
     public Vector3 Position
    {
        get
@@ -35,6 +37,7 @@ public class MainCharacter : MonoBehaviour, IDamagable
         target = GetComponent<Target>();
         ren = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
+        anim = GetComponent<Animator>();
         healthBar = GameObject.FindObjectOfType<HealthBar>();
 
         //Suppose the player has no upgrades at the begging of the level (just for test)

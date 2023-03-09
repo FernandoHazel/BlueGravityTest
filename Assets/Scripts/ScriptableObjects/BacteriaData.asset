@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e68a3ba877db544580c0bf6fcce741f, type: 3}
   m_Name: BacteriaData
   m_EditorClassIdentifier: 
-  maxHealt: 100
+  maxHealt: 10
   force: 0.1
   damage: 0.1
   attackRange: 2

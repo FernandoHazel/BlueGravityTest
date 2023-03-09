@@ -16,11 +16,11 @@ MonoBehaviour:
   modifiedMaxHealth: 100
   force: 10
   modifiedForce: 10
-  damage: 30
+  damage: 50
   modifiedDamage: 30
   attackRange: 1
   modifiedAttackRange: 1
   defaultProteins: 3000
   proteinsItemValue: 200
   BlueProteinValue: 10
-  inGameProteins: 3200
+  inGameProteins: 4000

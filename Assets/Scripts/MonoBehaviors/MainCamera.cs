@@ -7,7 +7,7 @@ public class MainCamera : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] Vector3 offset;
     [SerializeField] GameObject tracker;
-    [SerializeField] Vector2 minCamPos, maxCamPos;
+    public Vector2 minCamPos, maxCamPos;
     [SerializeField] float smoothTime;  //this is the time of delay of the camera movement
     private Vector2 velocity;
     private void Start() 
